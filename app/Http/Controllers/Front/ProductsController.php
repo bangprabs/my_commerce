@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use Route;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Category;
@@ -9,7 +10,7 @@ use App\Product;
 
 class ProductsController extends Controller
 {
-    public function listing($url, Request $request)
+    public function listing(Request $request)
     {
         if ($request->ajax()) {
             $data= $request->all();
@@ -49,6 +50,7 @@ class ProductsController extends Controller
                 abort(404);
             }
         } else {
+            $url = Route::getFacadeRoot()->current()->uri();
             $categoryCount = Category::where(['url'=>$url, 'status'=>1])->count();
             if ($categoryCount>0) {
                 $categoryDetails = Category::catDetails($url);

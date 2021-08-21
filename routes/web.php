@@ -12,6 +12,7 @@
 */
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Category;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -83,8 +84,12 @@ Route::prefix('/admin')->namespace('Admin')->group(function(){
 Route::namespace('Front')->group(function (){
     //Homepage Route
     Route::get('/', 'IndexController@index');
-    //Listing/Categories Route
-    Route::get('/{url}', 'ProductsController@listing');
+
+    // Get categeory url
+    $catUrls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
+    foreach ($catUrls as $url) {
+        Route::get('/'.$url, 'ProductsController@listing');
+    }
 });
 
 
