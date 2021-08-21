@@ -90,6 +90,8 @@ class ProductsController extends Controller
                 abort(404);
             }
         }
-
+    }
+    public function detail($code, $id){
+        return view('front.products.detail');
     }
 }
