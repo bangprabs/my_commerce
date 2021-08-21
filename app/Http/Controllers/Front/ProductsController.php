@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use Route;
+use Illuminate\Pagination\Paginator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Category;
@@ -12,6 +13,7 @@ class ProductsController extends Controller
 {
     public function listing(Request $request)
     {
+        Paginator::useBootstrap();
         if ($request->ajax()) {
             $data= $request->all();
             // echo "<pre>"; print_r($data); die;
@@ -24,6 +26,22 @@ class ProductsController extends Controller
                 // If fabric filter is selected
                 if (isset($data['fabric']) && !empty($data['fabric'])) {
                     $categoryProducts->whereIn('products.fabric', $data['fabric']);
+                }
+
+                if (isset($data['sleeve']) && !empty($data['sleeve'])) {
+                    $categoryProducts->whereIn('products.sleeve', $data['sleeve']);
+                }
+
+                if (isset($data['pattern']) && !empty($data['pattern'])) {
+                    $categoryProducts->whereIn('products.pattern', $data['pattern']);
+                }
+
+                if (isset($data['fit']) && !empty($data['fit'])) {
+                    $categoryProducts->whereIn('products.fit', $data['fit']);
+                }
+
+                if (isset($data['occasion']) && !empty($data['occasion'])) {
+                    $categoryProducts->whereIn('products.occasion', $data['occasion']);
                 }
 
                 // If sort option selected by User

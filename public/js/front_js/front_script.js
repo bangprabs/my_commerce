@@ -28,6 +28,62 @@ $(document).on("ready", function() {
         });
     });
 
+    $(".sleeve").on("click", function() {
+        var sleeve = get_filter(this);
+        var sort = $("#sort option:selected").text();
+        var url = $("#url").val();
+        $.ajax({
+            url: url,
+            method: "post",
+            data: { sleeve: sleeve, sort: sort, url: url },
+            success: function(data) {
+                $(".filter_products").html(data);
+            }
+        });
+    });
+
+    $(".pattern").on("click", function() {
+        var pattern = get_filter(this);
+        var sort = $("#sort option:selected").text();
+        var url = $("#url").val();
+        $.ajax({
+            url: url,
+            method: "post",
+            data: { pattern: pattern, sort: sort, url: url },
+            success: function(data) {
+                $(".filter_products").html(data);
+            }
+        });
+    });
+
+    $(".fit").on("click", function() {
+        var fit = get_filter(this);
+        var sort = $("#sort option:selected").text();
+        var url = $("#url").val();
+        $.ajax({
+            url: url,
+            method: "post",
+            data: { fit: fit, sort: sort, url: url },
+            success: function(data) {
+                $(".filter_products").html(data);
+            }
+        });
+    });
+
+    $(".occasion").on("click", function() {
+        var occasion = get_filter(this);
+        var sort = $("#sort option:selected").text();
+        var url = $("#url").val();
+        $.ajax({
+            url: url,
+            method: "post",
+            data: { occasion: occasion, sort: sort, url: url },
+            success: function(data) {
+                $(".filter_products").html(data);
+            }
+        });
+    });
+
     function get_filter(class_name) {
         var filter = [];
         $("." + class_name + ":checked").each(function() {
