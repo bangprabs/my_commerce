@@ -42,17 +42,18 @@
             </div>
         </div>
         <div class="span6">
-            <h3>Blue Casual Polo T-Shirt  </h3>
-            <small>- Brand Name</small>
+            <h3>{{$productDetails['product_name']}}  </h3>
+            <small>- {{ $productDetails['brand']['name'] }}</small>
             <hr class="soft"/>
             <small>100 items in stock</small>
             <form class="form-horizontal qtyFrm">
                 <div class="control-group">
-                    <h4>Rs.1000</h4>
+                    <h4>@currency($productDetails['product_price'])</h4>
                         <select class="span2 pull-left">
-                            <option>Small</option>
-                            <option>Medium</option>
-                            <option>Large</option>
+                            <option>Select Size</option>
+                            @foreach ($productDetails['attributes'] as $attribute)
+                                <option>{{ $attribute['size'] }}</option>
+                            @endforeach
                         </select>
                         <input type="number" class="span1" placeholder="Qty."/>
                         <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
@@ -60,15 +61,14 @@
                 </div>
             </form>
 
-            <hr class="soft clr"/>
-            <p class="span6">
-                Our Blue Casual Polo T-Shirt has a simple yet sophisticated design which makes it perfect for all outings, starting from regular morning jogs to casual outings and night walks. Coming to the functionality part, it’s antimicrobial, breathable and moisture-wicking features make it an essential wardrobe staple!
-
+            <hr class="soft clr span9"/>
+            <p>
+                <div class="span9">{!!$productDetails['description']!!}</div>
             </p>
             <a class="btn btn-small pull-right" href="#detail">More Details</a>
             <br class="clr"/>
             <a href="#" name="detail"></a>
-            <hr class="soft"/>
+            <hr class="soft span9"/>
         </div>
 
         <div class="span9">
@@ -82,16 +82,33 @@
                     <table class="table table-bordered">
                         <tbody>
                             <tr class="techSpecRow"><th colspan="2">Product Details</th></tr>
-                            <tr class="techSpecRow"><td class="techSpecTD1">Brand: </td><td class="techSpecTD2">Gap Premium</td></tr>
-                            <tr class="techSpecRow"><td class="techSpecTD1">Code:</td><td class="techSpecTD2">BCT001</td></tr>
-                            <tr class="techSpecRow"><td class="techSpecTD1">Color:</td><td class="techSpecTD2">Blue</td></tr>
-                            <tr class="techSpecRow"><td class="techSpecTD1">Fabric:</td><td class="techSpecTD2">Cotton</td></tr>
-                            <tr class="techSpecRow"><td class="techSpecTD1">Pattern:</td><td class="techSpecTD2">Plain</td></tr>
+                            <tr class="techSpecRow"><td class="techSpecTD1">Brand: </td><td class="techSpecTD2">{{ $productDetails['brand']['name'] }}</td></tr>
+                            @if (!empty($productDetails['product_code']))
+                            <tr class="techSpecRow"><td class="techSpecTD1">Code:</td><td class="techSpecTD2">{{ $productDetails['product_code'] }}</td></tr>
+                            @endif
+                            @if (!empty($productDetails['product_color']))
+                            <tr class="techSpecRow"><td class="techSpecTD1">Color:</td><td class="techSpecTD2">{{ $productDetails['product_color'] }}</td></tr>
+                            @endif
+                            @if (!empty($productDetails['producfabrict_code']))
+                            <tr class="techSpecRow"><td class="techSpecTD1">Fabric:</td><td class="techSpecTD2">{{ $productDetails['fabric'] }}</td></tr>
+                            @endif
+                            @if (!empty($productDetails['pattern']))
+                            <tr class="techSpecRow"><td class="techSpecTD1">Pattern:</td><td class="techSpecTD2">{{ $productDetails['pattern'] }}</td></tr>
+                            @endif
+                            @if (!empty($productDetails['sleeve']))
+                            <tr class="techSpecRow"><td class="techSpecTD1">Sleeve:</td><td class="techSpecTD2">{{ $productDetails['sleeve'] }}</td></tr>
+                            @endif
+                            @if (!empty($productDetails['fit']))
+                            <tr class="techSpecRow"><td class="techSpecTD1">Fit:</td><td class="techSpecTD2">{{ $productDetails['fit'] }}</td></tr>
+                            @endif
+                            @if (!empty($productDetails['occassion']))
+                            <tr class="techSpecRow"><td class="techSpecTD1">Occasion:</td><td class="techSpecTD2">{{ $productDetails['occassion'] }}</td></tr>
+                            @endif
                         </tbody>
                     </table>
 
                     <h5>Washcare</h5>
-                    <p>Machine Wash</p>
+                    <p>{{ $productDetails['wash_care'] }}</p>
                     <h5>Disclaimer</h5>
                     <p>
                         There may be a slight color variation between the image shown and original product.

@@ -92,7 +92,7 @@ Route::namespace('Front')->group(function (){
     }
 
     // Details page route
-    Route::get('/product/{code}/{id}', 'ProductsController@detail');
+    Route::get('/product/{id}', 'ProductsController@detail');
 });
 
 
