@@ -91,4 +91,35 @@ $(document).on("ready", function() {
         });
         return filter;
     }
+
+    $("#getPrice").on("change", function() {
+        var size = $(this).val();
+        var product_id = $(this).attr("product-id");
+        if (size == "") {
+            alert("Please select size");
+            return false;
+        }
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": jQuery(`meta[name="csrf-token"]`).attr(
+                    "content"
+                )
+            }
+        });
+
+        $.ajax({
+            url: "/get-product-price",
+            data: { size: size, product_id: product_id },
+            type: "post",
+            success: function(resp) {
+                // alert(resp);
+                var money = new Number(resp).toLocaleString("id-ID");
+                $(".getAttrPrice").html("Rp. " + money);
+            },
+            error: function() {
+                alert("Error");
+            }
+        });
+    });
 });
