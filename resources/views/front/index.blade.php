@@ -15,13 +15,13 @@
                                             <i class="tag"></i>
                                             <?php $product_image_path = 'images/product_images/small/'.$item['main_image']; ?>
                                             @if (!empty($item['main_image']) && file_exists($product_image_path))
-                                                <a href="product_details.html"><img style="width: 170px; height: 170px;" src="{{ asset('/images/product_images/small/'.$item['main_image']) }}" alt=""></a>
+                                                <a href="{{ url('product/'. $item['id']) }}"><img style="width: 170px; height: 170px;" src="{{ asset('/images/product_images/small/'.$item['main_image']) }}" alt=""></a>
                                                 @else
-                                                <a href="product_details.html"><img style="width: 170px; height: 170px;" src="{{ asset('/images/product_images/small/no-image.png') }}" alt=""></a>
+                                                <a href="{{ url('product/'. $item['id']) }}"><img style="width: 170px; height: 170px;" src="{{ asset('/images/product_images/small/no-image.png') }}" alt=""></a>
                                             @endif
                                             <div class="caption">
                                                 <h5>{{$item['product_name']}}</h5>
-                                                <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rp. {{$item['product_price']}}</span></h4>
+                                                <h4><a class="btn" href="{{ url('product/'. $item['id']) }}">VIEW</a> <span class="pull-right">Rp. {{$item['product_price']}}</span></h4>
                                             </div>
                                         </div>
                                     </li>
@@ -42,9 +42,9 @@
             <div class="thumbnail" style="margin-left: 14px;">
                 <?php $product_image_path = 'images/product_images/small/'.$product['main_image']; ?>
                 @if (!empty($product['main_image']) && file_exists($product_image_path))
-                    <a href="product_details.html"><img style="width: 195px; height: 195px;" src="{{ asset('/images/product_images/small/'.$product['main_image']) }}" alt=""></a>
+                    <a href="{{ url('product/'. $product['id']) }}"><img style="width: 195px; height: 195px;" src="{{ asset('/images/product_images/small/'.$product['main_image']) }}" alt=""></a>
                     @else
-                    <a href="product_details.html"><img style="width: 195px; height: 195px;" src="{{ asset('/images/product_images/small/no-image.png') }}" alt=""></a>
+                    <a href="{{ url('product/'. $product['id']) }}"><img style="width: 195px; height: 195px;" src="{{ asset('/images/product_images/small/no-image.png') }}" alt=""></a>
                 @endif
                 <div class="caption">
                     <h5>{{$product['product_name']}}</h5>
@@ -52,7 +52,7 @@
                         {{$product['occassion']}} || Type : {{$product['sleeve']}}
                     </p>
 
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@currency($product['product_price'])</a></h4>
+                    <h4 style="text-align:center"><a class="btn" href="{{ url('product/'. $product['id']) }}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@currency($product['product_price'])</a></h4>
                 </div>
             </div>
         </li>

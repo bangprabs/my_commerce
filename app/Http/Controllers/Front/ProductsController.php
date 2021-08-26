@@ -11,6 +11,7 @@ use App\Product;
 use App\ProductsAttribute;
 use Session;
 use App\Cart;
+use Auth;
 
 class ProductsController extends Controller
 {
@@ -137,7 +138,13 @@ class ProductsController extends Controller
             }
 
             //Check product if already exist in cart
-            $countProducts = Cart::where(['product_id'=>$data['product_id'], 'size'=>$data['size']])->count();
+            if(Auth::check()){
+                //User is login
+                $countProducts = Cart::where(['product_id'=>$data['product_id'], 'size'=>$data['size'], 'user_id'=>Auth::user()->id])->count();
+            } else {
+                $countProducts = Cart::where(['product_id'=>$data['product_id'], 'size'=>$data['size'], 'session_id'=>Session::get('session_id')])->count();
+
+            }
             if ($countProducts>0) {
                 $message = "Product is Exist in Cart !";
                 session::flash('error_message', $message);
@@ -156,5 +163,10 @@ class ProductsController extends Controller
             session::flash('success_message', $message);
             return redirect()->back();
         }
+    }
+
+    public function cart()
+    {
+        return view('front.products.cart');
     }
 }
