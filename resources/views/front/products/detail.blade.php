@@ -1,3 +1,4 @@
+<?php use App\Product; ?>
 @extends('layouts.front_layout.front_layout')
 @section('content')
 <div class="span9">
@@ -62,11 +63,15 @@
             <small>{{$total_stock}} items in stock</small>
             <form action="{{ url('add-to-cart') }}" method="POST" class="form-horizontal qtyFrm">@csrf
                 <input type="hidden" name="product_id" value="{{ $productDetails['id'] }}">
-
-
-
                 <div class="control-group">
-                    <h4 class="getAttrPrice">@currency($productDetails['product_price'])</h4>
+                    <?php $discounted_price = Product::getDiscountedPrice($productDetails['id']); ?>
+                    <h4 class="getAttrPrice">
+                        @if ($discounted_price >0)
+                        <del>@currency($productDetails['product_price'])</del>   @currency($discounted_price)
+                        @else
+                            @currency($productDetails['product_price'])
+                        @endif
+                    </h4>
                         <select required name="size" id="getPrice" product-id="{{$productDetails['id']}}" class="span2 pull-left">
                             <option value="">Select Size</option>
                             @foreach ($productDetails['attributes'] as $attribute)
