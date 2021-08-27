@@ -1,3 +1,4 @@
+<?php use App\Cart; ?>
 @extends('layouts.front_layout.front_layout')
 @section('content')
 <div class="span9">
@@ -47,52 +48,49 @@
         <thead>
             <tr>
                 <th>Product</th>
-                <th>Description</th>
+                <th colspan="2">Description</th>
                 <th>Quantity/Update</th>
-                <th>Price</th>
+                <th>Unit Price</th>
                 <th>Discount</th>
-                <th>Tax</th>
-                <th>Total</th>
+                <th>Sub Total</th>
             </tr>
         </thead>
         <tbody>
+            <?php $total_price = 0; ?>
             @foreach ($userCartItems as $item)
+            <?php $attrPrice = Cart::getProductAttrPrice($item['product_id'], $item['size']); ?>
             <tr>
                 <td> <img width="60" src="{{ asset('images/product_images/small/' . $item['product']['main_image']) }}" alt="" /></td>
-                <td>
-                    {{ $item['product']['product_name'] }}<br />
+                <td colspan="2">
+                    {{ $item['product']['product_name'] }} ({{ $item['product']['product_code'] }})<br />
                     Color : {{ $item['product']['product_color'] }}<br />
                     Size : {{ $item['size'] }}
                 </td>
                 <td>
-                    <div class="input-append"><input class="span1" style="max-width:34px" placeholder="1"
-                            id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i
-                                class="icon-minus"></i></button><button class="btn" type="button"><i
-                                class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i
-                                class="icon-remove icon-white"></i></button> </div>
+                    <div class="input-append">
+                        <input class="span1" style="max-width:34px" id="appendedInputButtons" size="16" type="text" value="{{ $item['quantity'] }}">
+                            <button class="btn" type="button"><i class="icon-minus"></i></button>
+                            <button class="btn" type="button"><i class="icon-plus"></i></button>
+                            <button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button> </div>
                 </td>
-                <td>@currency($item['product']['product_price'])</td>
+                <td>@currency($attrPrice)</td>
                 <td>Rs.0.00</td>
-                <td>Rs.0.00</td>
-                <td>Rs.1000.00</td>
+                <td>@currency($attrPrice * $item['quantity'])</td>
             </tr>
+            <?php $total_price = $total_price + ($attrPrice * $item['quantity']) ?>
             @endforeach
 
             <tr>
                 <td colspan="6" style="text-align:right">Total Price: </td>
-                <td> Rs.3000.00</td>
-            </tr>
-            <tr>
-                <td colspan="6" style="text-align:right">Total Discount: </td>
-                <td> Rs.0.00</td>
+                <td> @currency($total_price)</td>
             </tr>
             <tr>
                 <td colspan="6" style="text-align:right">Total Tax: </td>
                 <td> Rs.0.00</td>
             </tr>
             <tr>
-                <td colspan="6" style="text-align:right"><strong>TOTAL (Rs.3000 - Rs.0 + Rs.0) =</strong></td>
-                <td class="label label-important" style="display:block"> <strong> Rs.3000.00 </strong></td>
+                <td colspan="6" style="text-align:right"><strong>GRAND TOTAL (@currency($total_price) - Rs.0) =</strong></td>
+                <td class="label label-important" style="display:block"> <strong> @currency($total_price) </strong></td>
             </tr>
         </tbody>
     </table>

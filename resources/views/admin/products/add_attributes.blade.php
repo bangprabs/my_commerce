@@ -89,6 +89,15 @@
                                         value="{{ old('product_color') }}" } @endif>
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="product_color">Product Price</label>
+                                    <input readonly disabled class="form-control" id="product_color"
+                                        name="product_color"
+                                        @if(!empty($productdata['product_price'])) {
+                                        value="@currency($productdata['product_price'])" } @else {
+                                        value="{{ old('product_color') }}" } @endif>
+                                </div>
+
                                 <div class="input-group field_wrapper">
                                     <label for="product_color">Add Attributes</label>
                                     <div class="col-auto input-group-append p-0">
