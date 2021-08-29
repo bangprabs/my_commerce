@@ -113,9 +113,24 @@ $(document).on("ready", function() {
             data: { size: size, product_id: product_id },
             type: "post",
             success: function(resp) {
-                // alert(resp);
-                var money = new Number(resp).toLocaleString("id-ID");
-                $(".getAttrPrice").html("Rp. " + money);
+                // alert(resp["product_price"]);
+                // return false;
+                if (resp["discounted_price"] > 0) {
+                    var money = new Number(
+                        resp["product_price"]
+                    ).toLocaleString("id-ID");
+                    var moneyDisc = new Number(
+                        resp["discounted_price"]
+                    ).toLocaleString("id-ID");
+                    $(".getAttrPrice").html(
+                        "<del>Rp. " + money + "</del>" + "  Rp. " + moneyDisc
+                    );
+                } else {
+                    var money = new Number(
+                        resp["product_price"]
+                    ).toLocaleString("id-ID");
+                    $(".getAttrPrice").html("Rp. " + money);
+                }
             },
             error: function() {
                 alert("Error");
