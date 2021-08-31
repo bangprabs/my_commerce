@@ -12,7 +12,7 @@
                             <ul class="thumbnails">
                                 @foreach ($featuredItem as $item)
                                     <li class="span3">
-                                        <div class="thumbnail" style="height: 330px;>
+                                        <div class="thumbnail" style="height: 300px;>
                                             <i class="tag"></i>
                                             <?php $product_image_path = 'images/product_images/small/'.$item['main_image']; ?>
                                             @if (!empty($item['main_image']) && file_exists($product_image_path))
@@ -23,16 +23,14 @@
                                             <div class="caption">
                                                 <h5>{{$item['product_name']}}</h5>
                                                 <?php $discounted_price = Product::getDiscountedPrice($item['id']); ?>
-                                                <h4><a class="btn" href="{{ url('product/'. $item['id']) }}">VIEW</a> <span class="pull-right">
+                                                <h5><a class="btn" style="margin-bottom: 10px;" href="{{ url('product/'. $item['id']) }}">VIEW</a><br>
                                                     @if ($discounted_price > 0)
-                                                    <del>@currency($item['product_price'])</del>
+                                                    <del>@currency($item['product_price'])</del><br>
+                                                    <font color="red"> @currency($discounted_price)</font>
                                                     @else
                                                         @currency($item['product_price'])
                                                 @endif
-                                                </span></h4>
-                                                @if ($discounted_price >0)
-                                                <h5><font color="red">Discounted Price : @currency($discounted_price)</font></h5>
-                                            @endif
+                                                </h5>
                                             </div>
                                         </div>
                                     </li>

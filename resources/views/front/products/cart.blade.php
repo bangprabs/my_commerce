@@ -1,4 +1,4 @@
-<?php use App\Cart; ?>
+<?php use App\Product; ?>
 @extends('layouts.front_layout.front_layout')
 @section('content')
 <div class="span9">
@@ -44,6 +44,28 @@
         </tr>
     </table>
 
+    @if (Session::has('error_message'))
+    <div class="mr-3 ml-3" style="margin-bottom: -10px">
+        <div class="mt-4 alert alert-danger" role="alert">
+            {{ Session::get('error_message')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    @endif
+
+    @if (Session::has('success_message'))
+    <div class="mr-3 ml-3" style="margin-bottom: -10px">
+        <div class="mt-4 alert alert-success" role="alert">
+            {{ Session::get('success_message')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    @endif
+
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -51,14 +73,14 @@
                 <th colspan="2">Description</th>
                 <th>Quantity/Update</th>
                 <th>Unit Price</th>
-                <th>Discount</th>
+                <th>Category/Product <br>Discount</th>
                 <th>Sub Total</th>
             </tr>
         </thead>
         <tbody>
             <?php $total_price = 0; ?>
             @foreach ($userCartItems as $item)
-            <?php $attrPrice = Cart::getProductAttrPrice($item['product_id'], $item['size']); ?>
+            <?php $attrPrice = Product::getDiscountedAttrPrice($item['product_id'], $item['size']); ?>
             <tr>
                 <td> <img width="60" src="{{ asset('images/product_images/small/' . $item['product']['main_image']) }}" alt="" /></td>
                 <td colspan="2">
@@ -73,19 +95,19 @@
                             <button class="btn" type="button"><i class="icon-plus"></i></button>
                             <button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button> </div>
                 </td>
-                <td>@currency($attrPrice)</td>
-                <td>Rs.0.00</td>
-                <td>@currency($attrPrice * $item['quantity'])</td>
+                <td>@currency($attrPrice['product_price'])</td>
+                <td>@currency($attrPrice['discount'])</td>
+                <td>@currency($attrPrice['final_price'] * $item['quantity'])</td>
             </tr>
-            <?php $total_price = $total_price + ($attrPrice * $item['quantity']) ?>
+            <?php $total_price = $total_price + ($attrPrice['final_price'] * $item['quantity']) ?>
             @endforeach
 
             <tr>
-                <td colspan="6" style="text-align:right">Total Price: </td>
+                <td colspan="6" style="text-align:right">Sub Price: </td>
                 <td> @currency($total_price)</td>
             </tr>
             <tr>
-                <td colspan="6" style="text-align:right">Total Tax: </td>
+                <td colspan="6" style="text-align:right">Voucher Discount: </td>
                 <td> Rs.0.00</td>
             </tr>
             <tr>

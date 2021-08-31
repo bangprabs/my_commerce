@@ -115,7 +115,7 @@ class ProductsController extends Controller
             $getDiscountedAttrPrice = Product::getDiscountedAttrPrice($data['product_id'], $data['size']);
             return $getDiscountedAttrPrice;
         }
-    }   
+    }
 
     public function addToCart(Request $request)
     {
@@ -161,7 +161,7 @@ class ProductsController extends Controller
 
             $message = "Product has been addedd in Cart!";
             session::flash('success_message', $message);
-            return redirect()->back();
+            return redirect('cart');
         }
     }
 

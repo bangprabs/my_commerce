@@ -115,12 +115,12 @@ $(document).on("ready", function() {
             success: function(resp) {
                 // alert(resp["product_price"]);
                 // return false;
-                if (resp["discounted_price"] > 0) {
+                if (resp["discount"] > 0) {
                     var money = new Number(
                         resp["product_price"]
                     ).toLocaleString("id-ID");
                     var moneyDisc = new Number(
-                        resp["discounted_price"]
+                        resp["final_price"]
                     ).toLocaleString("id-ID");
                     $(".getAttrPrice").html(
                         "<del>Rp. " + money + "</del>" + "  Rp. " + moneyDisc
