@@ -1,3 +1,4 @@
+<?php use App\Product; ?>
 @extends('layouts.front_layout.front_layout')
 @section('content')
 <div class="span9">
@@ -11,7 +12,7 @@
                             <ul class="thumbnails">
                                 @foreach ($featuredItem as $item)
                                     <li class="span3">
-                                        <div class="thumbnail">
+                                        <div class="thumbnail" style="height: 330px;>
                                             <i class="tag"></i>
                                             <?php $product_image_path = 'images/product_images/small/'.$item['main_image']; ?>
                                             @if (!empty($item['main_image']) && file_exists($product_image_path))
@@ -21,7 +22,17 @@
                                             @endif
                                             <div class="caption">
                                                 <h5>{{$item['product_name']}}</h5>
-                                                <h4><a class="btn" href="{{ url('product/'. $item['id']) }}">VIEW</a> <span class="pull-right">Rp. {{$item['product_price']}}</span></h4>
+                                                <?php $discounted_price = Product::getDiscountedPrice($item['id']); ?>
+                                                <h4><a class="btn" href="{{ url('product/'. $item['id']) }}">VIEW</a> <span class="pull-right">
+                                                    @if ($discounted_price > 0)
+                                                    <del>@currency($item['product_price'])</del>
+                                                    @else
+                                                        @currency($item['product_price'])
+                                                @endif
+                                                </span></h4>
+                                                @if ($discounted_price >0)
+                                                <h5><font color="red">Discounted Price : @currency($discounted_price)</font></h5>
+                                            @endif
                                             </div>
                                         </div>
                                     </li>
@@ -29,9 +40,7 @@
                             </ul>
                         </div>
                     @endforeach
-                {{-- </div>
-                <a class="left carousel-control" href="#featured" data-slide="prev">‹</a>
-                <a class="right carousel-control" href="#featured" data-slide="next">›</a> --}}
+                </div>
             </div>
         </div>
     </div>
@@ -39,7 +48,7 @@
     <ul class="thumbnails">
         @foreach ($newProducts as $product)
         <li class="span3">
-            <div class="thumbnail" style="margin-left: 14px;">
+            <div class="thumbnail" style="margin-left: 14px; height: 400px;">
                 <?php $product_image_path = 'images/product_images/small/'.$product['main_image']; ?>
                 @if (!empty($product['main_image']) && file_exists($product_image_path))
                     <a href="{{ url('product/'. $product['id']) }}"><img style="width: 195px; height: 195px;" src="{{ asset('/images/product_images/small/'.$product['main_image']) }}" alt=""></a>
@@ -47,12 +56,23 @@
                     <a href="{{ url('product/'. $product['id']) }}"><img style="width: 195px; height: 195px;" src="{{ asset('/images/product_images/small/no-image.png') }}" alt=""></a>
                 @endif
                 <div class="caption">
+
                     <h5>{{$product['product_name']}}</h5>
                     <p>
                         {{$product['occassion']}} || Type : {{$product['sleeve']}}
                     </p>
-
-                    <h4 style="text-align:center"><a class="btn" href="{{ url('product/'. $product['id']) }}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@currency($product['product_price'])</a></h4>
+                    <?php $discounted_price = Product::getDiscountedPrice($product['id']); ?>
+                    <h4 style="text-align:center">
+                        <a class="btn" href="{{ url('product/'.$product['id']) }}"> <i class="icon-zoom-in"></i></a>
+                        <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a>
+                        <a class="btn btn-primary" href="#">
+                            @if ($discounted_price > 0)
+                                <del>@currency($product['product_price'])</del>
+                                <font color="yellow"> || @currency($discounted_price)</font>
+                                @else
+                                    @currency($product['product_price'])
+                            @endif
+                        </a></h4>
                 </div>
             </div>
         </li>
