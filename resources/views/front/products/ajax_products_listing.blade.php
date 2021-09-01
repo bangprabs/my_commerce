@@ -30,15 +30,14 @@
                             <a class="btn" href="{{ url('product/'.$product['id']) }}"> <i class="icon-zoom-in"></i></a>
                             <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a>
                             <a class="btn btn-primary" href="#">
-                                @if ($discounted_price >0)
+                                @if ($discounted_price > 0)
                                     <del>@currency($product['product_price'])</del>
+                                    <font color="yellow"> || @currency($discounted_price)</font>
                                     @else
                                         @currency($product['product_price'])
                                 @endif
-                            </a></h4>
-                            @if ($discounted_price >0)
-                            <h5><font color="red">Discounted Price : @currency($discounted_price)</font></h5>
-                        @endif
+                            </a>
+                        </h4>
                     </div>
                 </div>
             </li>

@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Front;
 
+use Auth;
 use Route;
-use Illuminate\Pagination\Paginator;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Category;
-use App\Product;
-use App\ProductsAttribute;
 use Session;
 use App\Cart;
-use Auth;
+use App\Product;
+use App\Category;
+use App\ProductsAttribute;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
+
 
 class ProductsController extends Controller
 {
@@ -170,5 +172,15 @@ class ProductsController extends Controller
         $userCartItems = Cart::userCartItems();
         // echo "<pre>"; print_r($userCartItems); die;
         return view('front.products.cart')->with(compact('userCartItems'));
+    }
+
+    public function updateCartItemQty(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            Cart::where('id', $data['cartid'])->update(['quantity'=>$data['qty']]);
+            $userCartItems = Cart::userCartItems();
+            return response()->json(['view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))]);
+        }
     }
 }

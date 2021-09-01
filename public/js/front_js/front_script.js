@@ -137,4 +137,47 @@ $(document).on("ready", function() {
             }
         });
     });
+
+    $(document).on("click", ".btnItemUpdate", function() {
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": jQuery(`meta[name="csrf-token"]`).attr(
+                    "content"
+                )
+            }
+        });
+
+        if ($(this).hasClass("qtyMinus")) {
+            var quantity = $(this)
+                .prev()
+                .val();
+            if (quantity <= 1) {
+                alert("Item quantity must be at least 1 or greater");
+                return false;
+            } else {
+                new_qty = parseInt(quantity) - 1;
+            }
+        }
+        if ($(this).hasClass("qtyPlus")) {
+            var quantity = $(this)
+                .prev()
+                .prev()
+                .val();
+            new_qty = parseInt(quantity) + 1;
+        }
+        // alert(new_qty);
+        var cartId = $(this).data("cartid");
+        // alert(cartId);
+        $.ajax({
+            data: { cartid: cartId, qty: new_qty },
+            url: "/update-cart-item-qty",
+            type: "post",
+            success: function(resp) {
+                $("#AppendCartItems").html(resp.view);
+            },
+            error: function() {
+                alert("Error");
+            }
+        });
+    });
 });

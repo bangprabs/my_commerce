@@ -70,7 +70,8 @@
                                 @else
                                     @currency($product['product_price'])
                             @endif
-                        </a></h4>
+                        </a>
+                    </h4>
                 </div>
             </div>
         </li>

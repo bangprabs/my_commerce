@@ -102,6 +102,9 @@ Route::namespace('Front')->group(function (){
 
     // Shopping cart Routes
     Route::get('/cart', 'ProductsController@cart');
+
+    //Route for update qty in cart
+    Route::post('/update-cart-item-qty', 'ProductsController@updateCartItemQty');
 });
 
 
