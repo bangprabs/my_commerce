@@ -210,4 +210,46 @@ $(document).on("ready", function() {
             });
         }
     });
+
+    $("#registerForm").validate({
+        rules: {
+            name: "required",
+            mobile: {
+                required: true,
+                minlength: 10,
+                maxlength: 12,
+                digits: true
+            },
+            password: {
+                required: true,
+                minlength: 6
+            },
+            email: {
+                required: true,
+                email: true,
+                remote: "check-email"
+            },
+            agree: "required"
+        },
+        messages: {
+            name: "Please enter your name",
+            mobile: {
+                required: "Please enter a mobile number",
+                minlength:
+                    "Your mobile number must consist of at least 10 digits",
+                maxlength:
+                    "Your mobile number must consist of at least 10 digits",
+                digits: "Please enter your valid Mobile Number"
+            },
+            email: {
+                required: "Please enter your email",
+                email: "Please enter valid email",
+                remote: "Email already Exist !"
+            },
+            password: {
+                required: "Please provide a password",
+                minlength: "Your password must be at least 5 characters long"
+            }
+        }
+    });
 });

@@ -118,5 +118,9 @@ Route::namespace('Front')->group(function (){
     //Route regist user
     Route::post('/register', 'UserController@registerUser');
 
+    //Route check email already exist regist
+    Route::match(['get', 'post'], '/check-email', 'UserController@checkEmail');
+
+    //Route logout user
     Route::get('/logout', 'UserController@logout');
 });

@@ -45,6 +45,18 @@ class UserController extends Controller
         }
     }
 
+    public function checkEmail(Request $request)
+    {
+        $data = $request->all();
+        $emailCount = User::where('email', $data['email'])->count();
+        if ($emailCount>0) {
+            return "false";
+        } else {
+            return "true";
+            die;
+        }
+    }
+
     public function logout()
     {
         Auth::logout();
