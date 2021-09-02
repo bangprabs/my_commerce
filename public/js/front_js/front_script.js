@@ -174,6 +174,9 @@ $(document).on("ready", function() {
             type: "post",
             success: function(resp) {
                 $("#AppendCartItems").html(resp.view);
+                if (resp.status == false) {
+                    alert(resp.message);
+                }
             },
             error: function() {
                 alert("Error");
