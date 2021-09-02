@@ -183,4 +183,31 @@ $(document).on("ready", function() {
             }
         });
     });
+
+    //Delete cart item
+    $(document).on("click", ".btnItemDelete", function() {
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": jQuery(`meta[name="csrf-token"]`).attr(
+                    "content"
+                )
+            }
+        });
+
+        var cartId = $(this).data("cartid");
+        var result = confirm("Want To Delete this Item ? ");
+        if (result) {
+            $.ajax({
+                data: { cartid: cartId },
+                url: "/delete-cart-item",
+                type: "post",
+                success: function(resp) {
+                    $("#AppendCartItems").html(resp.view);
+                },
+                error: function() {
+                    alert("Error");
+                }
+            });
+        }
+    });
 });

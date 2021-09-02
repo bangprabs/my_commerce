@@ -26,7 +26,7 @@
                     <input readonly class="span1" style="max-width:34px" id="appendedInputButtons" size="16" type="text" value="{{ $item['quantity'] }}">
                         <button class="btn btnItemUpdate qtyMinus" data-cartid="{{ $item['id'] }}" type="button"><i class="icon-minus"></i></button>
                         <button class="btn btnItemUpdate qtyPlus" data-cartid="{{ $item['id'] }}" type="button"><i class="icon-plus"></i></button>
-                        <button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button> </div>
+                        <button class="btn btn-danger btnItemDelete" data-cartid="{{ $item['id'] }}" type="button"><i class="icon-remove icon-white"></i></button> </div>
             </td>
             <td>@currency($attrPrice['product_price'])</td>
             <td>@currency($attrPrice['discount'])</td>
