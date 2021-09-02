@@ -117,4 +117,6 @@ Route::namespace('Front')->group(function (){
 
     //Route regist user
     Route::post('/register', 'UserController@registerUser');
+
+    Route::get('/logout', 'UserController@logout');
 });
