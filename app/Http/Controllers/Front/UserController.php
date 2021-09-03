@@ -152,6 +152,43 @@ class UserController extends Controller
         }else{
             abort(404);
         }
+    }
 
+    public function forgotPassword(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            $emailCount = User::where('email', $data['email'])->count();
+            if ($emailCount == 0) {
+                $message = "Email doesn't exist !";
+                session::flash('error_message', $message);
+                return redirect()->back();
+            } else {
+                $random_password = str_random(8);
+                $newPassword = bcrypt($random_password);
+
+                //Update Password
+                User::where('email', $data['email'])->update(['password'=>$newPassword]);
+                //get username
+                $userName = User::select('name')->where('email', $data['email'])->first();
+                //send forgor password email
+                $email = $data['email'];
+                $name = $userName->name;
+                $messageData = [
+                    'email' =>$email,
+                    'name' =>$name,
+                    'password' =>$random_password
+                ];
+                Mail::send('emails.forgot_password', $messageData, function($message) use($email){
+                    $message->to($email)->subject("New Passoword E-Commerce Website");
+                });
+
+                //redirect to login register page
+                $message = "Please check your email for new Password";
+                session::flash('success_message', $message);
+                return redirect('login-register');
+            }
+        }
+        return view('front.users.forgot_password');
     }
 }
