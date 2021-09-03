@@ -18,7 +18,7 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td><a href="{{ url('confirm/.$code') }}">Confirm Account</a></td>
+            <td><a href="{{ url('confirm/'.$code) }}">Confirm Account</a></td>
         </tr>
         <tr>
             <td>&nbsp;</td>

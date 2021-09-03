@@ -123,4 +123,7 @@ Route::namespace('Front')->group(function (){
 
     //Route logout user
     Route::get('/logout', 'UserController@logout');
+
+    //Confirm account
+    Route::match(['get', 'post'], '/confirm/{code}', 'UserController@confirmAccount');
 });

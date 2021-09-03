@@ -55,7 +55,7 @@ class UserController extends Controller
 
                 //Redirect back with success
                 $message = "Please confirm your email to activate your account";
-                session::flash('success_message_confirm', $message);
+                session::flash('success_message', $message);
                 return redirect()->back();
 
                 // if (Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']])) {
@@ -122,5 +122,36 @@ class UserController extends Controller
     {
         Auth::logout();
         return redirect('/');
+    }
+
+    public function confirmAccount($email ,Request $request)
+    {
+        //Decode the email
+        $email = base64_decode($email);
+
+        //Check user email
+        $userCount = User::where('email',$email)->count();
+        if ($userCount>0) {
+            //logic email activated or not
+            $userDetails = User::where('email',$email)->first();
+            if ($userDetails->status == 1) {
+                $message = "Your email already Activated, Please login !";
+                session::flash('error_message', $message);
+                return redirect('login-register');
+            }else {
+                //update status to 1
+                User::where('email', $email)->update(['status'=>1]);
+                $messageData = ['code'=>base64_encode($userDetails['email']),'name'=>$userDetails['name'], 'mobile'=>$userDetails['mobile'], 'email'=>$email];
+                Mail::send('emails.confirmation', $messageData, function($message) use($email){
+                    $message->to($email)->subject('Welcome to E-Commerce Website');
+                });
+                $message = "Your email has been activated, You can login now !";
+                session::flash('success_message', $message);
+                return redirect('login-register');
+            }
+        }else{
+            abort(404);
+        }
+
     }
 }
