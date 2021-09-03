@@ -62,20 +62,37 @@
         </div>
         <div class="span1"> &nbsp;</div>
         <div class="span4">
+            @if (Session::has('error_message'))
+            <div class="mr-3 ml-3" style="margin-bottom: -10px">
+                <div class="mt-4 alert alert-danger" role="alert">
+                    {{ Session::get('error_message_login')}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            @endif
+
+            @if (Session::has('success_message'))
+            <div class="mr-3 ml-3" style="margin-bottom: -10px">
+                <div class="mt-4 alert alert-success" role="alert">
+                    {{ Session::get('success_message')}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            @endif
             <div class="well">
                 <h5>ALREADY REGISTERED ?</h5>
-                <form>
-                    <div class="control-group">
-                        <label class="control-label" for="inputEmail1">Email</label>
-                        <div class="controls">
-                            <input class="span3" type="text" id="inputEmail1" placeholder="Email">
-                        </div>
+                <form id="loginForm" action="{{ url('/login') }}" method="post">@csrf
+                    <label class="control-label" for="email">E-mail address</label>
+                    <div class="controls">
+                        <input class="span3" type="text" id="email" name="email" placeholder="Enter Email">
                     </div>
-                    <div class="control-group">
-                        <label class="control-label" for="inputPassword1">Password</label>
-                        <div class="controls">
-                            <input type="password" class="span3" id="inputPassword1" placeholder="Password">
-                        </div>
+                    <label class="control-label" for="password">Password</label>
+                    <div class="controls">
+                        <input class="span3" type="password" name="password" id="password" placeholder="Enter Password">
                     </div>
                     <div class="control-group">
                         <div class="controls">

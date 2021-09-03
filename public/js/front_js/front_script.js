@@ -252,4 +252,28 @@ $(document).on("ready", function() {
             }
         }
     });
+
+    $("#loginForm").validate({
+        rules: {
+            password: {
+                required: true,
+                minlength: 6
+            },
+            email: {
+                required: true,
+                email: true
+                // remote: "check-email"
+            }
+        },
+        messages: {
+            email: {
+                required: "Please enter your email",
+                email: "Please enter valid email"
+            },
+            password: {
+                required: "Please enter a password",
+                minlength: "Your password must be at least 5 characters long"
+            }
+        }
+    });
 });
