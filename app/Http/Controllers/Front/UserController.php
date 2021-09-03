@@ -36,24 +36,43 @@ class UserController extends Controller
                 $user->mobile = $data['mobile'];
                 $user->email = $data['email'];
                 $user->password = bcrypt($data['password']);
-                $user->status = 1;
+                $user->status = 0;
 
                 $user->save();
-                if (Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']])) {
-                    if (!empty(Session::get('session_id'))) {
-                        $user_id = Auth::user()->id;
-                        $session_id = Session::get('sesion_id');
-                        Cart::where('session_id', $session_id)->update(['user_id'=>$user_id]);
-                    }
 
-                    $email = $data['email'];
-                    $messageData = ['name'=>$data['name'], 'mobile'=>$data['mobile'], 'email'=>$data['email']];
-                    Mail::send('emails.register', $messageData, function($message) use($email){
-                        $message->to($email)->subject('Welcome to E-Commerce Website');
-                    });
+                //Send confirmation email
+                $email = $data['email'];
+                $messageData = [
+                            'email'=>$data['email'],
+                            'name'=>$data['name'],
+                            'code'=>base64_encode($data['email']),
+                            'mobile'=>$data['mobile'],
+                            'email'=>$data['email']
+                ];
+                Mail::send('emails.confirmation', $messageData, function($message) use($email){
+                    $message->to($email)->subject("Confirm your account E-Commerce");
+                });
 
-                    return redirect('');
-                }
+                //Redirect back with success
+                $message = "Please confirm your email to activate your account";
+                session::flash('success_message_confirm', $message);
+                return redirect()->back();
+
+                // if (Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']])) {
+                //     if (!empty(Session::get('session_id'))) {
+                //         $user_id = Auth::user()->id;
+                //         $session_id = Session::get('sesion_id');
+                //         Cart::where('session_id', $session_id)->update(['user_id'=>$user_id]);
+                //     }
+
+                //     $email = $data['email'];
+                //     $messageData = ['name'=>$data['name'], 'mobile'=>$data['mobile'], 'email'=>$data['email']];
+                //     Mail::send('emails.register', $messageData, function($message) use($email){
+                //         $message->to($email)->subject('Welcome to E-Commerce Website');
+                //     });
+
+                //     return redirect('');
+                // }
             }
         }
     }
@@ -76,6 +95,15 @@ class UserController extends Controller
             $data = $request->all();
             // dd($data); die;
             if (Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']])) {
+
+                $userStatus = User::where('email',$data['email'])->first();
+                if ($userStatus->status == 0) {
+                    Auth::logout();
+                    $message = "Your Account is not activated yet !, Please activate your account";
+                    session::flash('error_message', $message);
+                    return redirect()->back();
+                }
+
                 if (!empty(Session::get('session_id'))) {
                     $user_id = Auth::user()->id;
                     $session_id = Session::get('sesion_id');
@@ -84,7 +112,7 @@ class UserController extends Controller
                 return redirect('/cart');
             } else {
                 $message = "Invalid Email and Password !";
-                session::flash('error_message_login', $message);
+                session::flash('error_message', $message);
                 return redirect()->back();
             }
         }

@@ -7,31 +7,29 @@
     </ul>
     <h3> Login / Register</h3>
     <hr class="soft" />
+    @if (Session::has('error_message'))
+        <div class="mr-3 ml-3" style="margin-bottom: -10px">
+            <div class="mt-4 alert alert-danger" role="alert">
+                {{ Session::get('error_message')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        @endif
 
+        @if (Session::has('success_message'))
+        <div class="mr-3 ml-3" style="margin-bottom: -10px">
+            <div class="mt-4 alert alert-success" role="alert">
+                {{ Session::get('success_message')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        @endif
     <div class="row">
-
         <div class="span4">
-            @if (Session::has('error_message'))
-            <div class="mr-3 ml-3" style="margin-bottom: -10px">
-                <div class="mt-4 alert alert-danger" role="alert">
-                    {{ Session::get('error_message')}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
-            @endif
-
-            @if (Session::has('success_message'))
-            <div class="mr-3 ml-3" style="margin-bottom: -10px">
-                <div class="mt-4 alert alert-success" role="alert">
-                    {{ Session::get('success_message')}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
-            @endif
             <div class="well">
                 <h5>CREATE YOUR ACCOUNT</h5><br />
                 Enter your details to create an account.<br /><br />
@@ -62,27 +60,6 @@
         </div>
         <div class="span1"> &nbsp;</div>
         <div class="span4">
-            @if (Session::has('error_message'))
-            <div class="mr-3 ml-3" style="margin-bottom: -10px">
-                <div class="mt-4 alert alert-danger" role="alert">
-                    {{ Session::get('error_message_login')}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
-            @endif
-
-            @if (Session::has('success_message'))
-            <div class="mr-3 ml-3" style="margin-bottom: -10px">
-                <div class="mt-4 alert alert-success" role="alert">
-                    {{ Session::get('success_message')}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
-            @endif
             <div class="well">
                 <h5>ALREADY REGISTERED ?</h5>
                 <form id="loginForm" action="{{ url('/login') }}" method="post">@csrf

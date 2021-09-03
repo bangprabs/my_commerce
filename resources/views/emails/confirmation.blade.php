@@ -12,7 +12,13 @@
             <td>Dear {{ $name }} !</td>
         </tr>
         <tr>
-            <td>Welcome to E-Commerce Website. Your account details are as below : </td>
+            <td>Please click on below link to activate your account : </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td><a href="{{ url('confirm/.$code') }}">Confirm Account</a></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
