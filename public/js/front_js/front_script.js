@@ -276,4 +276,49 @@ $(document).on("ready", function() {
             }
         }
     });
+
+    $("#forgotPasswordForm").validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
+                // remote: "check-email"
+            }
+        },
+        messages: {
+            email: {
+                required: "Please enter your email",
+                email: "Please enter valid email"
+            }
+        }
+    });
+
+    $("#accountForm").validate({
+        rules: {
+            name: {
+                required: true,
+                lettersonly: true
+            },
+            mobile: {
+                required: true,
+                minlength: 10,
+                maxlength: 12,
+                digits: true
+            }
+        },
+        messages: {
+            name: {
+                required: "Please enter your Name",
+                lettersonly: "Please enter valide Name"
+            },
+            mobile: {
+                required: "Please enter a mobile number",
+                minlength:
+                    "Your mobile number must consist of at least 10 digits",
+                maxlength:
+                    "Your mobile number must consist of at least 10 digits",
+                digits: "Please enter your valid Mobile Number"
+            }
+        }
+    });
 });

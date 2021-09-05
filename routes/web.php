@@ -129,4 +129,7 @@ Route::namespace('Front')->group(function (){
 
     //Route forgot password
     Route::match(['get', 'post'], '/forgot-password', 'UserController@forgotPassword');
+
+    //route user account
+    Route::match(['get', 'post'], '/account', 'UserController@account');
 });
