@@ -46,42 +46,47 @@
                     <div class="control-group">
                         <label class="control-label" for="name">Name</label>
                         <div class="controls">
-                            <input class="span3" type="text" id="name" name="name" placeholder="Enter Name" value="{{ $userDetails['name'] }}" required  pattern="[A-Za-z]+">
+                            <input class="span3" type="text" id="name" name="name" placeholder="Enter Name"
+                                value="{{ $userDetails['name'] }}" required pattern="[A-Za-z]+">
                         </div>
                         <label class="control-label" for="address">Address</label>
                         <div class="controls">
-                            <input class="span3" type="text" id="address" name="address" placeholder="Enter Address" required value="{{ $userDetails['address'] }}">
+                            <input class="span3" type="text" id="address" name="address" placeholder="Enter Address"
+                                required value="{{ $userDetails['address'] }}">
                         </div>
                         <label class="control-label" for="city">City</label>
                         <div class="controls">
-                            <input class="span3" type="text" id="city" name="city"  placeholder="Enter City" value="{{ $userDetails['city'] }}">
+                            <input class="span3" type="text" id="city" name="city" placeholder="Enter City"
+                                value="{{ $userDetails['city'] }}">
                         </div>
                         <label class="control-label" for="state">State</label>
                         <div class="controls">
-                            <input class="span3" type="text" id="state" name="state"  placeholder="Enter State" value="{{ $userDetails['state'] }}">
+                            <input class="span3" type="text" id="state" name="state" placeholder="Enter State"
+                                value="{{ $userDetails['state'] }}">
                         </div>
                         <label class="control-label" for="country">Country</label>
                         <div class="controls">
                             <select class="span3" id="country" name="country">
-                                <option  value="">Select Contries</option>
+                                <option value="">Select Contries</option>
                                 @foreach ($countries as $country)
-                                 <option @if ($country['country_name'] == $userDetails['country'])
-                                    selected
-                                 @endif value="{{ $country['country_name'] }}">{{$country['country_name']}}</option>
+                                <option @if ($country['country_name']==$userDetails['country']) selected @endif
+                                    value="{{ $country['country_name'] }}">{{$country['country_name']}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <label class="control-label" for="pincode">Pincode</label>
                         <div class="controls">
-                            <input class="span3" type="text" id="pincode" name="pincode"  placeholder="Enter Pincode" value="{{ $userDetails['pincode'] }}">
+                            <input class="span3" type="text" id="pincode" name="pincode" placeholder="Enter Pincode"
+                                value="{{ $userDetails['pincode'] }}">
                         </div>
                         <label class="control-label" for="mobile">Mobile</label>
                         <div class="controls">
-                            <input class="span3" type="number" name="mobile" id="mobile" placeholder="Enter Mobile" value="{{ $userDetails['mobile'] }}">
+                            <input class="span3" type="number" name="mobile" id="mobile" placeholder="Enter Mobile"
+                                value="{{ $userDetails['mobile'] }}">
                         </div>
                         <label class="control-label" for="email">E-mail address</label>
                         <div class="controls">
-                            <input class="span3" value="{{ $userDetails['email'] }}" type="text" readonly >
+                            <input class="span3" value="{{ $userDetails['email'] }}" type="text" readonly>
                         </div>
                     </div>
                     <div class="controls">
@@ -95,17 +100,27 @@
             <div class="well">
                 <h5>Update Password Form</h5>
                 <form id="passwordForm" action="{{ url('/update-password') }}" method="post">@csrf
-                    <label class="control-label" for="password">Current Password</label>
-                    <div class="controls">
-                        <input class="span3" type="password" name="password" id="password" placeholder="Enter Password">
+                    <div class="control-group">
+                        <label class="control-label" for="current_pwd">Current Password</label>
+                        <div class="controls">
+                            <input class="span3" type="password" name="current_pwd" id="current_pwd"
+                                placeholder="Enter Current Password"><br>
+                            <span id="chkPwd"></span>
+                        </div>
                     </div>
-                    <label class="control-label" for="password">New Password</label>
-                    <div class="controls">
-                        <input class="span3" type="password" name="password" id="password" placeholder="Enter Password">
+                    <div class="control-group">
+                        <label class="control-label" for="new_password">New Password</label>
+                        <div class="controls">
+                            <input class="span3" type="password" name="new_password" id="new_password"
+                                placeholder="Enter New Password">
+                        </div>
                     </div>
-                    <label class="control-label" for="password">Confirm Password</label>
-                    <div class="controls">
-                        <input class="span3" type="password" name="password" id="password" placeholder="Enter Password">
+                    <div class="control-group">
+                        <label class="control-label" for="confirm_password">Confirm Password</label>
+                        <div class="controls">
+                            <input class="span3" type="password" name="confirm_password" id="confirm_password"
+                                placeholder="Enter Confirm Password">
+                        </div>
                     </div>
                     <div class="control-group">
                         <div class="controls">

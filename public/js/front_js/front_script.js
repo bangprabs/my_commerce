@@ -321,4 +321,64 @@ $(document).on("ready", function() {
             }
         }
     });
+
+    //Check current user password
+    $("#current_pwd").keyup(function(e) {
+        var current_pwd = $(this).val();
+        $.ajax({
+            type: "post",
+            url: "/check-user-password",
+            data: { current_pwd: current_pwd },
+            success: function(resp) {
+                // alert(resp);
+                if (resp == "false") {
+                    $("#chkPwd").html(
+                        "<font color='red'><b>Current Password is Incorrect</b></font>"
+                    );
+                } else if (resp == "true") {
+                    $("#chkPwd").html(
+                        "<font color='green'><b>Current Password is Correct</b></font>"
+                    );
+                }
+            },
+            error: function(params) {
+                alert("Error");
+            }
+        });
+    });
+
+    $("#passwordForm").validate({
+        rules: {
+            current_pwd: {
+                required: true,
+                minlength: 6,
+                maxlength: 20
+            },
+            new_password: {
+                required: true,
+                minlength: 6,
+                maxlength: 20
+            },
+            confirm_password: {
+                required: true,
+                minlength: 6,
+                maxlength: 20,
+                equalTo: "#new_password"
+            }
+        },
+        messages: {
+            current_pwd: {
+                required: "Please enter your Current Password",
+                minlength: "Your password must be at least 5 characters long"
+            },
+            new_password: {
+                required: "Please enter your New Password",
+                minlength: "Your password must be at least 5 characters long"
+            },
+            confirm_password: {
+                required: "Please enter your Confirm Password",
+                minlength: "Your password must be at least 5 characters long"
+            }
+        }
+    });
 });
