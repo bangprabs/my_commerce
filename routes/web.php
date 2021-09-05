@@ -110,7 +110,7 @@ Route::namespace('Front')->group(function (){
     Route::post('/delete-cart-item', 'ProductsController@deleteCartItem');
 
     //Login register page
-    Route::get('/login-register', 'UserController@loginRegister');
+    Route::get('/login-register', ['as'=>'login','uses'=>'UserController@loginRegister']);
 
     //Route login user
     Route::post('/login', 'UserController@loginUser');
@@ -127,15 +127,17 @@ Route::namespace('Front')->group(function (){
     //Confirm account
     Route::match(['get', 'post'], '/confirm/{code}', 'UserController@confirmAccount');
 
-    //Route forgot password
-    Route::match(['get', 'post'], '/forgot-password', 'UserController@forgotPassword');
+    Route::group(['middleware'=>['auth']], function(){
+        //Route forgot password
+        Route::match(['get', 'post'], '/forgot-password', 'UserController@forgotPassword');
 
-    //route user account
-    Route::match(['get', 'post'], '/account', 'UserController@account');
+        //route user account
+        Route::match(['get', 'post'], '/account', 'UserController@account');
 
-    //Route for checking user password
-    Route::post('/check-user-password', 'UserController@userChkPassword');
+        //Route for checking user password
+        Route::post('/check-user-password', 'UserController@userChkPassword');
 
-    //Route update password
-    Route::post('/update-password', 'UserController@updateUserPassword');
+        //Route update password
+        Route::post('/update-password', 'UserController@updateUserPassword');
+    });
 });
