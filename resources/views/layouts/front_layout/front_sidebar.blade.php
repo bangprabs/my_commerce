@@ -4,7 +4,7 @@
 @endphp
 
 <div id="sidebar" class="span3">
-    <div class="well well-small"><a id="myCart" href="product_summary.html"><img src="{{url('/images/front_images/ico-cart.png')}}" alt="cart">3 Items in your cart</a></div>
+    <div class="well well-small"><a id="myCart" href="{{ url('/cart') }}"><img src="{{url('/images/front_images/ico-cart.png')}}" alt="cart"><span class="totalCartItems">{{totalCartItems()}}</span> Items in your cart</a></div>
     <ul id="sideManu" class="nav nav-tabs nav-stacked">
         @foreach ($sections as $section)
             @if (count($section['categories'])>0)

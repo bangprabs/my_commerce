@@ -170,7 +170,7 @@ class ProductsController extends Controller
 
             $message = "Product has been addedd in Cart!";
             session::flash('success_message', $message);
-            return redirect('cart');
+            return redirect()->back();
         }
     }
 
@@ -191,9 +191,6 @@ class ProductsController extends Controller
 
             //get avaliable stock
             $availableStock = ProductsAttribute::select('stock')->where(['product_id'=>$cartDetails['product_id'], 'size'=>$cartDetails['size']])->first()->toArray();
-            // echo "Demand Stock: " . $data['qty'];
-            // echo "<br>";
-            // echo "Avaiable Stock: " . $availableStock['stock']; die;
 
             //Check stoc is available or not
             if ($data['qty']>$availableStock['stock']) {
@@ -216,8 +213,10 @@ class ProductsController extends Controller
 
             Cart::where('id', $data['cartid'])->update(['quantity'=>$data['qty']]);
             $userCartItems = Cart::userCartItems();
+            $totalCartItems = totalCartItems();
             return response()->json([
                 'status'=>true,
+                'totalCartItems'=>$totalCartItems,
                 'view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))]);
         }
     }
@@ -229,7 +228,9 @@ class ProductsController extends Controller
             // echo "<pre>"; print_r($data); die;
             Cart::where('id', $data['cartid'])->delete();
             $userCartItems = Cart::userCartItems();
+            $totalCartItems = totalCartItems();
             return response()->json([
+                'totalCartItems'=>$totalCartItems,
                 'view'=>(String)View::make('front.products.cart_items')->with(compact('userCartItems'))]);
         }
     }

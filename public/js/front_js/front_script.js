@@ -173,10 +173,11 @@ $(document).on("ready", function() {
             url: "/update-cart-item-qty",
             type: "post",
             success: function(resp) {
-                $("#AppendCartItems").html(resp.view);
                 if (resp.status == false) {
                     alert(resp.message);
                 }
+                $(".totalCartItems").html(resp.totalCartItems);
+                $("#AppendCartItems").html(resp.view);
             },
             error: function() {
                 alert("Error");
@@ -203,6 +204,7 @@ $(document).on("ready", function() {
                 type: "post",
                 success: function(resp) {
                     $("#AppendCartItems").html(resp.view);
+                    $(".totalCartItems").html(resp.totalCartItems);
                 },
                 error: function() {
                     alert("Error");
