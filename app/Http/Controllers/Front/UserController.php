@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use Session;
 use App\Cart;
 use App\User;
+use App\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -197,8 +198,21 @@ class UserController extends Controller
         $user_id = Auth::user()->id;
         $userDetails = User::find($user_id)->toArray();
 
+        $countries = Country::where('status', 1)->get()->toArray();
+
         if ($request->isMethod('post')) {
             $data = $request->all();
+
+            $rules = [
+                'name' => 'required|regex:/^[\pL\s\-]+$/u',
+                'mobile' => 'required|numeric',
+            ];
+            $customeMessages = [
+                'name.required' => 'Name is required',
+                'mobile.required' => 'Mobile is required',
+                'mobile.numeric' => 'Valid Mobile is required',
+            ];
+            $this->validate($request, $rules, $customeMessages);
 
             $user = User::find($user_id);
             $user->name = $data['name'];
@@ -215,6 +229,6 @@ class UserController extends Controller
             return redirect()->back();
         }
 
-        return view('front.users.account')->with(compact('userDetails'));
+        return view('front.users.account')->with(compact('userDetails', 'countries'));
     }
 }

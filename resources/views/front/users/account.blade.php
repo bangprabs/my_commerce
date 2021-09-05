@@ -28,6 +28,15 @@
         </div>
     </div>
     @endif
+
+    @if ($errors->any())
+    <div class="mt-4 alert alert-danger" role="alert">
+        @foreach ($errors->all() as $error)
+        {{ $error }} <br>
+        @endforeach
+    </div>
+    @endif
+
     <div class="row">
         <div class="span4">
             <div class="well">
@@ -53,7 +62,14 @@
                         </div>
                         <label class="control-label" for="country">Country</label>
                         <div class="controls">
-                            <input class="span3" type="text" id="country" name="country"  placeholder="Enter Country" value="{{ $userDetails['country'] }}">
+                            <select class="span3" id="country" name="country">
+                                <option  value="">Select Contries</option>
+                                @foreach ($countries as $country)
+                                 <option @if ($country['country_name'] == $userDetails['country'])
+                                    selected
+                                 @endif value="{{ $country['country_name'] }}">{{$country['country_name']}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <label class="control-label" for="pincode">Pincode</label>
                         <div class="controls">
