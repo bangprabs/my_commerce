@@ -27,7 +27,7 @@
                     <div class="card card-success">
                         <div class="card-header card-success">
                             <h3 class="card-title mt-2">Data Coupons</h3>
-                            <a href="{{ url('admin/add-edit-banner')}}" class="btn btn-primary float-right">Add Coupons</a>
+                            <a href="{{ url('admin/add-edit-coupon')}}" class="btn btn-primary float-right">Add Coupons</a>
                         </div>
 
                         @if (Session::has('success_message'))
@@ -43,7 +43,7 @@
 
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="banners" class="table table-bordered table-hover table-striped">
+                            <table id="coupon" class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
                                         <th>No. </th>

@@ -378,4 +378,13 @@ $(document).ready(function() {
             }
         });
     });
+
+    //show hide coupon code field for manual/automatic trigger
+    $("#manualCoupon").click(function() {
+        $("#couponField").show();
+    });
+
+    $("#automaticCoupon").click(function() {
+        $("#couponField").hide();
+    });
 });

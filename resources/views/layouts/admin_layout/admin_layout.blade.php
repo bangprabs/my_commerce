@@ -214,6 +214,20 @@
         });
     });
 
+    $(function () {
+        $('#coupon').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            { extend: 'print', title: 'Data', exportOptions: { columns: ':visible' } },
+            { extend: 'pdfHtml5', title: 'PDF', download: 'open', exportOptions: { columns: ':visible' } },
+            { extend: 'copyHtml5', exportOptions: { columns: ':visible' } },
+            { extend: 'csvHtml5', title: 'CSV', exportOptions: { columns: ':visible' } },
+            { extend: 'excelHtml5', title: 'Excel', exportOptions: { columns: ':visible' } },
+            { extend: 'colvis', text: 'Visibility Column' }
+        ]
+        });
+    });
+
   </script>
 </body>
 
