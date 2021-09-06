@@ -231,12 +231,10 @@ class ProductsController extends Controller
 
     public function addAttributes(Request $request, $id)
     {
-
         if ($request->isMethod('post')) {
             $data = $request->all();
             foreach ($data['sku'] as $key => $value) {
                 if (!empty($value)) {
-
                     //For SKU Checking
                     $attrCountSKU = ProductsAttribute::where('sku', $value)->count();
                     if ($attrCountSKU > 0) {
