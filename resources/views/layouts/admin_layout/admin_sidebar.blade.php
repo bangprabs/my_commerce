@@ -66,7 +66,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item {{ Request::is('admin/sections','admin/categories', 'admin/add-edit-category', 'admin/add-edit-category/*', 'admin/products', 'admin/add-edit-product/*', 'admin/brands', 'admin/add-edit-brand' ,'admin/add-edit-brand/*') ? 'menu-open' : '' }}">
+                <li class="nav-item {{ Request::is('admin/sections','admin/categories', 'admin/add-edit-category', 'admin/add-edit-category/*', 'admin/products', 'admin/add-edit-product/*', 'admin/brands', 'admin/add-edit-brand' ,'admin/add-edit-brand/*', 'admin/coupons') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="fas fa-swatchbook nav-icon"></i>
                         <p>
@@ -97,6 +97,12 @@
                             <a href="{{ url('admin/products')}}" class="nav-link {{ Request::is('admin/products' , 'admin/add-edit-product/*', 'add-edit-product/{$id}') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Products</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('admin/coupons')}}" class="nav-link {{ Request::is('admin/coupons' , 'admin/add-edit-product/*', 'add-edit-product/{$id}') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Coupons</p>
                             </a>
                         </li>
                     </ul>
