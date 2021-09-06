@@ -344,4 +344,38 @@ $(document).ready(function() {
             }
         });
     });
+
+    // Update Coupon Status
+    $(document).on("click", ".updateCouponStatus", function() {
+        var status = $(this).text();
+        var coupon_id = $(this).attr("coupon_id");
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": jQuery(`meta[name="csrf-token"]`).attr(
+                    "content"
+                )
+            }
+        });
+        $.ajax({
+            type: "post",
+            url: "/admin/update-coupon-status",
+            data: { status: status, coupon_id: coupon_id },
+            success: function(resp) {
+                if (resp["status"] == 0) {
+                    $("#coupon-" + coupon_id)
+                        .removeClass("btn btn-primary")
+                        .addClass("btn btn-danger")
+                        .html("Inactive");
+                } else if (resp["status"] == 1) {
+                    $("#coupon-" + coupon_id)
+                        .removeClass("btn btn-danger")
+                        .addClass("btn btn-primary")
+                        .html("Active");
+                }
+            },
+            error: function() {
+                alert("Error");
+            }
+        });
+    });
 });
