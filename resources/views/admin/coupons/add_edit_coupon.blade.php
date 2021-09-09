@@ -57,15 +57,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="coupon_option">Coupon Option : </label></br>
-                                    <input id="automaticCoupon" type="radio" name="coupon_option" id=""
+                                    <span><input id="automaticCoupon" type="radio" name="coupon_option" id=""
                                         value="Automatic">&nbsp;Automatic</span>
                                     &nbsp;&nbsp;
-                                    <input id="manualCoupon" type="radio" name="coupon_option" id=""
+                                    <span> <input id="manualCoupon" type="radio" name="coupon_option" id=""
                                         value="Manual">&nbsp;Manual </span>
                                 </div>
                                 <div class="form-group">
                                     <label for="coupon_option">Select Category : </label><span style="font-size: 15px; font-style: italic; margin-left: 10px">Select with control key if multiple select</span></br>
-                                    <select name="categories[]" class="form-control select2" multiple size="10">
+                                    <select data-placeholder="Select a Category" name="categories[]" class="form-control select2" multiple size="10">
                                         @foreach ($categories as $section)
                                         <optgroup label="{{ $section['name'] }}"></optgroup>
                                         @foreach ($section['categories'] as $category)
@@ -86,6 +86,25 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="coupon_option">Select Users : </label><span style="font-size: 15px; font-style: italic; margin-left: 10px">Select with control key if multiple select</span></br>
+                                    <select data-placeholder="Select a Users" name="users[]" select class="form-control select2" multiple="multiple">
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user['email'] }}">{{ $user['email'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Date masks:</label>
+
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                      </div>
+                                      <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="yyyy/mm/dd" data-mask id="datemask">
+                                    </div>
+                                    <!-- /.input group -->
+                                  </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group" style="display: none" id="couponField">
@@ -93,6 +112,24 @@
                                     <input class="form-control" id="coupon_code" name="coupon_code"
                                         placeholder="Enter Coupon Code">
                                 </div>
+                                <div class="form-group">
+                                    <label for="amount">Amount</label>
+                                    <input class="form-control" id="amount" name="amount"
+                                        placeholder="Enter Amount">
+                                </div>
+                                <div class="form-group">
+                                    <label for="coupon_type">Coupon Type</label><br>
+                                    <span><input type="radio" name="coupon_type" value="Multiple Times">&nbsp;Multiple Times</span>&nbsp;&nbsp;
+                                    <span><input type="radio" name="coupon_type" value="Single Times">&nbsp;Multiple Times</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="amount_type">Amount Type</label><br>
+                                    <span><input type="radio" name="amount_type" value="Percetage">&nbsp;Percentage (in %)</span>&nbsp;&nbsp;
+                                    <span><input type="radio" name="amount_type" value="Fixed">&nbsp;Fixed (in Rupiah)</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
                             </div>
                         </div>
                     </div>

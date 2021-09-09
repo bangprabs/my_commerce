@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\User;
 use App\Coupon;
 use App\Section;
 use Illuminate\Http\Request;
@@ -44,6 +45,8 @@ class CouponsController extends Controller
         $categories = Section::with('categories')->get();
         $categories = json_decode(json_encode($categories), true);
 
-        return view('admin.coupons.add_edit_coupon')->with(compact('title', 'coupon', 'categories'));
+        $users = User::select('email')->where('status', 1)->get()->toArray();
+
+        return view('admin.coupons.add_edit_coupon')->with(compact('title', 'coupon', 'categories', 'users'));
     }
 }

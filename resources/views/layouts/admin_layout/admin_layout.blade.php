@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="{{ url('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ url('plugins/summernote/summernote-bs4.min.css') }}">
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -64,10 +65,26 @@
     </div>
     <!-- ./wrapper -->
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
     <!-- jQuery -->
     <script src="{{ url('plugins/jquery/jquery.min.js') }}"></script>
+
+    <script src="{{url('//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js')}}"></script>
+
+    {{-- <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script> --}}
+
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ url('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script> --}}
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
@@ -127,6 +144,10 @@
     <script src="{{ url('js/admin_js/imagePrev.js')}}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+
+    <script src="{{ url('plugins/moment.min.js')}}"></script>
+    <script src="{{ url('plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('.ckeditor').ckeditor();
@@ -227,6 +248,16 @@
         ]
         });
     });
+
+     //Initialize Select2 Elements
+     $('.select2').select2()
+
+        //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
 
   </script>
 </body>
