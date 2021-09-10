@@ -37,11 +37,15 @@ class CouponsController extends Controller
         if ($id == "") {
             //Add Coupon
             $coupon = new Coupon;
+            $selCats = array();
+            $selUsers = array();
             $title = "Add Coupon";
             $message = "Coupon added successfully !";
         } else {
             // Edit/Update Coupon
             $coupon = Coupon::find($id);
+            $selCats = explode(', ', $coupon['categories']);
+            $selUsers = explode(', ', $coupon['users']);
             $title = "Edit Coupon";
             $message = "Coupon updated successfully !";
         }
@@ -111,6 +115,15 @@ class CouponsController extends Controller
 
         $users = User::select('email')->where('status', 1)->get()->toArray();
 
-        return view('admin.coupons.add_edit_coupon')->with(compact('title', 'coupon', 'categories', 'users'));
+        return view('admin.coupons.add_edit_coupon')->with(compact('title', 'coupon', 'categories', 'users', 'selCats', 'selUsers'));
     }
+
+    public function deleteCoupon($id)
+    {
+        Coupon::where('id', $id)->delete();
+        $message = 'Coupon has been Deleted Successfully !';
+        session::flash('success_message', $message);
+        return redirect()->back();
+    }
+
 }

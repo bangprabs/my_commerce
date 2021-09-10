@@ -68,7 +68,7 @@
                                             @if ($coupon['amount_type'] == "Precentage")
                                                 {{$coupon['amount']}} %
                                             @else
-                                                Rp. {{$coupon['amount']}}
+                                                @currency($coupon['amount'])
                                             @endif
                                         </td>
                                         <td>{{$coupon['expiry_date']}}</td>
