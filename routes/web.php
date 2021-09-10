@@ -133,9 +133,10 @@ Route::namespace('Front')->group(function (){
     //Confirm account
     Route::match(['get', 'post'], '/confirm/{code}', 'UserController@confirmAccount');
 
+    //Route forgot password
+    Route::match(['get', 'post'], '/forgot-password', 'UserController@forgotPassword');
+
     Route::group(['middleware'=>['auth']], function(){
-        //Route forgot password
-        Route::match(['get', 'post'], '/forgot-password', 'UserController@forgotPassword');
 
         //route user account
         Route::match(['get', 'post'], '/account', 'UserController@account');
@@ -145,5 +146,8 @@ Route::namespace('Front')->group(function (){
 
         //Route update password
         Route::post('/update-password', 'UserController@updateUserPassword');
+
+        //Apply Coupon
+        Route::post('/apply-coupon', 'ProductsController@applyCoupon');
     });
 });

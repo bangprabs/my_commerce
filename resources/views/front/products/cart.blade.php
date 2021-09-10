@@ -39,12 +39,12 @@
         <tbody>
             <tr>
                 <td>
-                    <form class="form-horizontal">
+                    <form method="post" action="javascript:void(0);" class="form-horizontal" id="applyCoupon" @if (Auth::check()) user="1" @endif>@csrf
                         <div class="control-group">
-                            <label class="control-label"><strong> VOUCHERS CODE: </strong> </label>
+                            <label class="control-label"><strong> COUPON CODE: </strong> </label>
                             <div class="controls">
-                                <input type="text" class="input-medium" placeholder="CODE">
-                                <button type="submit" class="btn"> ADD </button>
+                                <input name="code" id="code" type="text" class="input-medium" required placeholder="Enter Coupon Code">
+                                <button type="submit" class="btn"> Apply Coupon </button>
                             </div>
                         </div>
                     </form>

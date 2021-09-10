@@ -383,4 +383,31 @@ $(document).on("ready", function() {
             }
         }
     });
+
+    // Apply coupon code
+    $("#applyCoupon").on("submit", function() {
+        var user = $(this).attr("user");
+        if (user == 1) {
+            // do nothing
+        } else {
+            alert("Please login first, to apply coupon");
+            return false;
+        }
+        var code = $("#code").val();
+        $.ajax({
+            type: "post",
+            data: { code: code },
+            url: "/apply-coupon",
+            success: function(resp) {
+                if (resp.message != "") {
+                    alert(resp.message);
+                }
+                $("#AppendCartItems").html(resp.view);
+                $(".totalCartItems").html(resp.totalCartItems);
+             },
+            error: function() {
+                alert("Error");
+            }
+        });
+    });
 });
